@@ -1,47 +1,51 @@
 class GamesController < ApplicationController
+  before_action :get_user
   before_action :set_game, only: %i[ show update destroy ]
-
-  # GET /games
+ 
+  # GET users/:id/games
   def index
-    @games = Game.all
+    @games = @user.games
 
     render json: @games
   end
 
-  # GET /games/1
+  # GET users/:id/games/:id
   def show
     render json: @game
   end
 
-  # POST /games
+  # POST users/:id/games
   def create
-    @game = Game.new(game_params)
+    @game = @user.games.build(game_params)
 
     if @game.save
-      render json: @game, status: :created, location: @game
+      render json: @game, status: :created, location: @user_game
     else
       render json: @game.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /games/1
+  # PATCH/PUT users/:id/games/:id
   def update
     if @game.update(game_params)
-      render json: @game
+      render json: @game, status: :ok, location: @user_game
     else
       render json: @game.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /games/1
+  # DELETE users/:id/games/:id
   def destroy
     @game.destroy
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    def get_user
+      @user = User.find(params[:user_id])
+    end
+
     def set_game
-      @game = Game.find(params[:id])
+      @game = @user.games.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
