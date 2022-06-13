@@ -1,13 +1,13 @@
 require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  test "should get create" do
-    get sessions_create_url
+  test "should send post request to /login" do
+    post login_url
     assert_response :success
   end
 
-  test "should get destroy" do
-    get sessions_destroy_url
+  test "should send delete request to /logout" do
+    delete logout_url
     assert_response :success
   end
 end
