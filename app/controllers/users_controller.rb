@@ -11,6 +11,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
+          reset_session
           session[:user_id] = @user.id
           render json: 'success', status: :created, location: @user
         else

@@ -1,10 +1,10 @@
 class GamesController < ApplicationController
-  before_action :get_user
+  before_action :authorize
   before_action :set_game, only: %i[ show update destroy ]
  
   # GET users/:id/games
   def index
-    @games = @user.games
+    @games = current_user.games
 
     render json: @games
   end
@@ -16,19 +16,18 @@ class GamesController < ApplicationController
 
   # POST users/:id/games
   def create
-    @game = @user.games.build(game_params)
-
-    if @game.save
-      render json: @game, status: :created, location: @user_game
-    else
-      render json: @game.errors, status: :unprocessable_entity
-    end
+      @game = current_user.games.build(game_params)
+      if @game.save
+        render json: @game, status: :created
+      else
+        render json: @game.errors, status: :unprocessable_entity
+      end
   end
 
   # PATCH/PUT users/:id/games/:id
   def update
     if @game.update(game_params)
-      render json: @game, status: :ok, location: @user_game
+      render json: @game, status: :ok
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -40,16 +39,14 @@ class GamesController < ApplicationController
   end
 
   private
-    def get_user
-      @user = User.find(params[:user_id])
-    end
-
     def set_game
-      @game = @user.games.find(params[:id])
+      @game = current_user.games.find_by(id: params[:id]) || nil
+      render json: 'Error: game does not exist.' if @game.nil?
     end
 
     # Only allow a list of trusted parameters through.
     def game_params
       params.require(:game).permit(:title, :platform, :owned, :user_id)
     end
+    
 end
