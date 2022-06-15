@@ -5,11 +5,9 @@ one:
   title: MyString
   platform: MyString
   owned: false
-  user_id: 1
 
 two:
   id: 2
   title: MyString
   platform: MyString
   owned: false
-  user_id: 2

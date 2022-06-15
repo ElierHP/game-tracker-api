@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
         end
     end
 
-    def authorize
+    def authorize_user
         render json: 'unauthorized', status: :unauthorized unless logged_in?
     end
 
