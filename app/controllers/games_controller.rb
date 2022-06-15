@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authorize
+  before_action :authorize_user
   before_action :set_game, only: %i[ show update destroy ]
  
   # GET users/:id/games
