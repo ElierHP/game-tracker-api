@@ -2,12 +2,12 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
+    @user = log_in_user[:user]
   end
 
-  test "should not show user unless logged in" do
+  test "should show user" do
     get user_url(@user), as: :json
-    assert_response :unauthorized
+    assert_response :ok
   end
 
   test "should create user" do
@@ -21,7 +21,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should update user" do
     patch user_url(@user), params: { user: { email: 'onetest@gmail.com', password: 'secrets', password_confirmation: 'secrets'} }, as: :json
     
-    assert_response :success
+    assert_response :ok
   end
 
   test "should destroy user" do
