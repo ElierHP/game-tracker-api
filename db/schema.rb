@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_172403) do
   create_table "games", force: :cascade do |t|
     t.string "title"
     t.string "platform"
-    t.boolean "owned"
+    t.boolean "completed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"

@@ -14,8 +14,10 @@ class GameTest < ActiveSupport::TestCase
     assert_not @game.valid?
   end
 
-  test "owned should be a boolean" do
-    @game.owned = nil
+  test "completed should be a boolean" do
+    @game.completed = false
+    assert_not @game.valid?
+    @game.completed = true
     assert_not @game.valid?
   end
 

@@ -14,7 +14,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create game" do
     assert_difference("Game.count") do
-      post games_url(@user), params: { game: { owned: @game.owned, platform: @game.platform, title: @game.title, user_id: @game.user_id} }, as: :json
+      post games_url(@user), params: { game: { completed: @game.completed, platform: @game.platform, title: @game.title, user_id: @game.user_id} }, as: :json
     end
 
     assert_response :created
@@ -26,7 +26,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update game" do
-    patch game_url(@user), params: { game: { owned: false, platform: 'test platform', title: 'tester', user_id: @user.id  } }, as: :json
+    patch game_url(@user), params: { game: { platform: 'test platform', title: 'tester', user_id: @user.id, completed: false  } }, as: :json
     assert_response :success
   end
 

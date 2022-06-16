@@ -3,11 +3,10 @@ class CreateGames < ActiveRecord::Migration[7.0]
     create_table :games do |t|
       t.string :title
       t.string :platform
-      t.boolean :owned
+      t.boolean :completed
 
       t.timestamps
     end
-    
     add_reference :games, :user, null: false, foreign_key: true
   end
 end

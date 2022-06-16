@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
     @user = User.create(email: "testuser@example.com", password: "secret", password_confirmation: "secret")
 
     # Create a game for the new user.
-    @game = Game.create(owned: true, title: 'test', platform: 'test platform', user_id: @user.id)
+    @game = Game.create(completed: true, title: 'test', platform: 'test platform', user_id: @user.id)
 
     # Login the User. Required for protected routes.
     post login_url, params: { session: { email: @user.email, password: 'secret' } }, as: :json
