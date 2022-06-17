@@ -2,19 +2,19 @@ class GamesController < ApplicationController
   before_action :authorize_user
   before_action :set_game, only: %i[ show update destroy ]
  
-  # GET users/:id/games
+  # GET /games
   def index
     @games = current_user.games
 
     render json: @games
   end
 
-  # GET users/:id/games/:id
+  # GET games/:id
   def show
     render json: @game
   end
 
-  # POST users/:id/games
+  # POST /games
   def create
       @game = current_user.games.build(game_params)
       if @game.save
@@ -24,7 +24,7 @@ class GamesController < ApplicationController
       end
   end
 
-  # PATCH/PUT users/:id/games/:id
+  # PATCH/PUT /games/:id
   def update
     if @game.update(game_params)
       render json: @game, status: :ok
@@ -33,7 +33,7 @@ class GamesController < ApplicationController
     end
   end
 
-  # DELETE users/:id/games/:id
+  # DELETE /games/:id
   def destroy
     @game.destroy
   end

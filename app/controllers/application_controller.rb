@@ -10,12 +10,12 @@ class ApplicationController < ActionController::API
         end
     end
 
-    def authorize_user
-        render json: 'unauthorized', status: :unauthorized unless logged_in?
-    end
-
     def logged_in?
         !current_user.nil?
+    end
+
+    def authorize_user
+        render json: 'unauthorized', status: :unauthorized unless logged_in?
     end
 
     def log_out
